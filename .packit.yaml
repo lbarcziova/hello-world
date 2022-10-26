@@ -15,6 +15,7 @@ jobs:
   metadata:
     targets:
     - epel-8-x86_64
+    - fedora-36-x86_64
 
 
 - job: tests
@@ -32,3 +33,10 @@ jobs:
     targets:
       epel-8-x86_64:
         distros: [centos-stream-8]
+
+- job: tests
+  trigger: pull_request
+  identifier: test3
+  metadata:
+    targets:
+      - fedora-36-x86_64
