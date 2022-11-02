@@ -10,12 +10,9 @@ downstream_package_name: hello
 # create_tarball_command: ["python3", "setup.py", "sdist", "--dist-dir", "."]
 packit_instances: ["stg"]
 jobs:
-
-
-- job: tests
+- job: copr_build
   trigger: commit
   metadata:
-    skip_build: true
     branch: commit-trigger
     targets:
       - fedora-stable
