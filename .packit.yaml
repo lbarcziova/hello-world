@@ -17,26 +17,25 @@ jobs:
     - epel-8-x86_64
     - fedora-36-x86_64
 
+- job: tests
+  trigger: pull_request
+  metadata:
+    targets:
+      - fedora-36-x86_64
+      - epel-8-x86_64
 
 - job: tests
   trigger: pull_request
   identifier: test1
   metadata:
     targets:
-      epel-8-x86_64:
-        distros: [centos-stream-8]
+      - fedora-36-x86_64
 
 - job: tests
   trigger: pull_request
   identifier: test2
   metadata:
     targets:
-      epel-8-x86_64:
-        distros: [centos-stream-8]
-
-- job: tests
-  trigger: pull_request
-  identifier: test3
-  metadata:
-    targets:
       - fedora-36-x86_64
+
+
