@@ -21,6 +21,15 @@ jobs:
 
 - job: tests
   trigger: commit
+  identifier: first
+  metadata:
+    branch: commit-trigger-test
+    targets:
+      - fedora-stable
+
+- job: tests
+  trigger: commit
+  identifier: second
   metadata:
     branch: commit-trigger-test
     targets:
