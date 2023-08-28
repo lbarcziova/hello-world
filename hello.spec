@@ -17,6 +17,7 @@ BuildRequires:  python3-setuptools
 %autosetup -n %{name}-%{version}
 
 %build
+exit 1
 %py3_build
 
 %install
