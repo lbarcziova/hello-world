@@ -1,5 +1,5 @@
 ---
-packit_instances: ["prod", "stg"]
+packit_instances: ["stg"]
 specfile_path: hello.spec
 files_to_sync:
   - .packit.yaml
@@ -10,32 +10,61 @@ downstream_package_name: hello
 #   post-upstream-clone: "python3 setup.py sdist --dist-dir ."
 # current_version_command: ["python3", "setup.py", "--version"]
 # create_tarball_command: ["python3", "setup.py", "sdist", "--dist-dir", "."]
+
+test_command:
+  default_labels:
+    - a
+    - b
+
 jobs:
-- job: copr_build
-  trigger: pull_request
-  targets:
-  - fedora-stable-x86_64
-  - fedora-rawhide-x86_64
-
-- job: copr_build
-  trigger: release
-  targets:
-  - fedora-stable
-
-- job: copr_build
-  trigger: commit
-  branch: main
-  targets:
-    - fedora-stable
 
 - job: tests
   trigger: pull_request
+  manual_trigger: true
+  skip_build: true
+  identifier: id1
+  labels: 
+    - a
   targets:
-  - fedora-stable-x86_64
-  - fedora-rawhide-x86_64
+    - fedora-rawhide-x86_64
 
-- job: propose_downstream
-  trigger: release
-  packit_instances: ["stg"]
-  dist_git_branches:
-  - fedora-all
+- job: tests
+  trigger: pull_request
+  manual_trigger: true
+  skip_build: true
+  identifier: id2
+  targets:
+    - fedora-39-x86_64
+
+- job: tests
+  trigger: pull_request
+  manual_trigger: true
+  skip_build: true
+  identifier: id3
+  labels:
+    - a
+    - b
+  targets:
+    - fedora-39-x86_64
+
+- job: tests
+  trigger: pull_request
+  manual_trigger: true
+  skip_build: true
+  identifier: id4
+  labels:
+    - c
+  targets:
+    - fedora-39-x86_64
+
+- job: tests
+  trigger: pull_request
+  manual_trigger: true
+  skip_build: true
+  identifier: id5
+  labels:
+    - b
+  targets:
+    - fedora-39-x86_64
+
+
