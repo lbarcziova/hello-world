@@ -14,28 +14,24 @@ jobs:
 - job: copr_build
   trigger: pull_request
   targets:
-  - fedora-stable-x86_64
   - fedora-rawhide-x86_64
-
-- job: copr_build
-  trigger: release
-  targets:
-  - fedora-stable
-
-- job: copr_build
-  trigger: commit
-  branch: main
-  targets:
-    - fedora-stable
 
 - job: tests
   trigger: pull_request
+  identifier: first
   targets:
-  - fedora-stable-x86_64
-  - fedora-rawhide-x86_64
+  - fedora-41-x86_64
 
-- job: propose_downstream
-  trigger: release
-  packit_instances: ["stg"]
-  dist_git_branches:
-  - fedora-all
+- job: tests
+  trigger: pull_request
+  identifier: second
+  targets:
+  - fedora-42-x86_64
+
+- job: copr_build
+  trigger: pull_request
+  identifier: test-targets
+  targets:
+  - fedora-41-x86_64
+  - fedora-42-x86_64
+
