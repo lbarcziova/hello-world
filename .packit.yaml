@@ -1,41 +1,164 @@
 ---
-packit_instances: ["prod", "stg"]
+# Benchmark configuration for testing label caching performance
+packit_instances: ["stg"]
 specfile_path: hello.spec
 files_to_sync:
   - .packit.yaml
   - hello.spec
 upstream_package_name: hello
 downstream_package_name: hello
-# actions:
-#   post-upstream-clone: "python3 setup.py sdist --dist-dir ."
-# current_version_command: ["python3", "setup.py", "--version"]
-# create_tarball_command: ["python3", "setup.py", "sdist", "--dist-dir", "."]
+
+# Common label requirements for benchmarking
+_:
+  - &require-benchmark
+    require:
+      label:
+        present:
+          - label1
+        absent:
+          - label2
+
 jobs:
 - job: copr_build
   trigger: pull_request
   targets:
-  - fedora-stable-x86_64
-  - fedora-rawhide-x86_64
+  - fedora-rawhide
 
-- job: copr_build
-  trigger: release
-  targets:
-  - fedora-stable
-
-- job: copr_build
-  trigger: commit
-  branch: main
-  targets:
-    - fedora-stable
 
 - job: tests
   trigger: pull_request
+  require:
+    label:
+      present:
+        - label2
   targets:
-  - fedora-stable-x86_64
-  - fedora-rawhide-x86_64
+  - fedora-rawhide
+  identifier: test-02
 
-- job: propose_downstream
-  trigger: release
-  packit_instances: ["stg"]
-  dist_git_branches:
-  - fedora-all
+- job: tests
+  trigger: pull_request
+  <<: *require-benchmark
+  targets:
+  - fedora-rawhide
+  identifier: test-03
+
+- job: tests
+  trigger: pull_request
+  <<: *require-benchmark
+  targets:
+  - fedora-rawhide
+  identifier: test-04
+
+- job: tests
+  trigger: pull_request
+  <<: *require-benchmark
+  targets:
+  - fedora-rawhide
+  identifier: test-05
+
+- job: tests
+  trigger: pull_request
+  <<: *require-benchmark
+  targets:
+  - fedora-rawhide
+  identifier: test-06
+
+- job: tests
+  trigger: pull_request
+  <<: *require-benchmark
+  targets:
+  - fedora-rawhide
+  identifier: test-07
+
+- job: tests
+  trigger: pull_request
+  <<: *require-benchmark
+  targets:
+  - fedora-rawhide
+  identifier: test-08
+
+- job: tests
+  trigger: pull_request
+  <<: *require-benchmark
+  targets:
+  - fedora-rawhide
+  identifier: test-09
+
+- job: tests
+  trigger: pull_request
+  <<: *require-benchmark
+  targets:
+  - fedora-rawhide
+  identifier: test-10
+
+- job: tests
+  trigger: pull_request
+  <<: *require-benchmark
+  targets:
+  - fedora-rawhide
+  identifier: test-11
+
+- job: tests
+  trigger: pull_request
+  <<: *require-benchmark
+  targets:
+  - fedora-rawhide
+  identifier: test-12
+
+- job: tests
+  trigger: pull_request
+  <<: *require-benchmark
+  targets:
+  - fedora-rawhide
+  identifier: test-13
+
+- job: tests
+  trigger: pull_request
+  <<: *require-benchmark
+  targets:
+  - fedora-rawhide
+  identifier: test-14
+
+- job: tests
+  trigger: pull_request
+  <<: *require-benchmark
+  targets:
+  - fedora-rawhide
+  identifier: test-15
+
+- job: tests
+  trigger: pull_request
+  <<: *require-benchmark
+  targets:
+  - fedora-rawhide
+  identifier: test-16
+
+- job: tests
+  trigger: pull_request
+  <<: *require-benchmark
+  targets:
+  - fedora-rawhide
+  identifier: test-17
+
+- job: tests
+  trigger: pull_request
+  <<: *require-benchmark
+  targets:
+  - fedora-rawhide
+  identifier: test-18
+
+- job: tests
+  trigger: pull_request
+  <<: *require-benchmark
+  targets:
+  - fedora-rawhide
+  identifier: test-19
+
+- job: tests
+  trigger: pull_request
+  <<: *require-benchmark
+  targets:
+  - fedora-rawhide
+  identifier: test-20
+
+
